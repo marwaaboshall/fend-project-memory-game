@@ -6,8 +6,7 @@ let cards = ['fa fa-diamond','fa fa-paper-plane-o',
 			'fa fa-cube','fa fa-cube','fa fa-bolt','fa fa-leaf','fa fa-bicycle','fa fa-bomb',
 			'fa fa-leaf','fa fa-bicycle','fa fa-bomb'];
 
-const stars = document.getElementsByClassName('fa-star');
-
+const stars = document.getElementsByClassName('star');
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -59,10 +58,10 @@ function respondToTheClick(evt) {
 		}
 	}
 	if(moves === 7) {
-		stars[2].classList = "fa fa-star-o";
+		stars[2].className = "fa fa-star-o star";
 	}
 	if(moves === 15) {
-		stars[1].classList = "fa fa-star-o";
+		stars[1].className = "fa fa-star-o star";
 	}
 }
 
@@ -72,13 +71,37 @@ let deck = document.querySelector('.deck');
 
 for(let card of shuffledCards) {
 	let cardHTML = `<li class="card">
-                		<i class="${card}"></i>
+                		<i class="${card} image"></i>
             		</li>`;
 	deck.insertAdjacentHTML('beforeend',cardHTML);
 }
 
 deck.addEventListener('click' , respondToTheClick);
 
+
+let cardsElements = document.getElementsByClassName('card');
+let images = document.getElementsByClassName('image');
+
+function reset() {
+	moves = 0;
+	movesText.innerText = 0;
+	for(let i = 0; i < stars.length; i++) {
+		stars[i].className = "fa fa-star star";
+	}
+
+	shuffledCards = shuffle(cards);
+
+	for(let j = 0; j < cardsElements.length; j++) {
+		cardsElements[j].className = 'card';
+		images[j].className = `${shuffledCards[j]} image`;
+	}
+	parentList = [];
+	openCards = [];
+	moves = 0;
+}
+
+let resetButton = document.getElementById("reset");
+resetButton.addEventListener('click', reset);
 
 /*
  * set up the event listener for a card. If a card is clicked:
