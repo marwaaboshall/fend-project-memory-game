@@ -1,6 +1,10 @@
 /*
  * Create a list that holds all of your cards
  */
+let cards = ['fa fa-diamond','fa fa-paper-plane-o',
+			'fa fa-diamond','fa fa-paper-plane-o','fa fa-anchor','fa fa-anchor','fa fa-bolt',
+			'fa fa-cube','fa fa-cube','fa fa-bolt','fa fa-leaf','fa fa-bicycle','fa fa-bomb',
+			'fa fa-leaf','fa fa-bicycle','fa fa-bomb'];
 
 
 /*
@@ -25,7 +29,47 @@ function shuffle(array) {
     return array;
 }
 
+let openCards = [];
+let parentList = [];
+let showOpen = ['show' , 'open'];
+let moves = 0;
+const movesText  =  document.getElementById('moves');
 
+function respondToTheClick(evt) {
+	if(evt.target.nodeName === 'LI') {
+		parentList.push(evt.target);
+		evt.target.classList.add(...showOpen);
+		openCards.push(evt.target.querySelector('i'));
+		if(openCards.length === 2) {
+			if(openCards[0].className.toString() === openCards[1].className.toString()) {
+				parentList[0].classList.add('match');
+				parentList[1].classList.add('match');
+			} else {
+				parentList.forEach(function(item, index, arr) {
+					setTimeout(function hide() {
+						item.classList.remove(...showOpen);
+				}, 1000);
+				});
+			}
+			moves += 1;
+			movesText.innerText = moves;
+			openCards = [];
+			parentList = [];
+		}
+	}
+}
+
+let shuffledCards = shuffle(cards);
+let deck = document.querySelector('.deck');
+
+for(let card of shuffledCards) {
+	let cardHTML = `<li class="card">
+                		<i class="${card}"></i>
+            		</li>`;
+	deck.insertAdjacentHTML('beforeend',cardHTML);
+}
+
+deck.addEventListener('click' , respondToTheClick);
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
