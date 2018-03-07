@@ -6,6 +6,7 @@ let cards = ['fa fa-diamond','fa fa-paper-plane-o',
 			'fa fa-cube','fa fa-cube','fa fa-bolt','fa fa-leaf','fa fa-bicycle','fa fa-bomb',
 			'fa fa-leaf','fa fa-bicycle','fa fa-bomb'];
 
+const stars = document.getElementsByClassName('fa-star');
 
 /*
  * Display the cards on the page
@@ -57,7 +58,14 @@ function respondToTheClick(evt) {
 			parentList = [];
 		}
 	}
+	if(moves === 7) {
+		stars[2].classList = "fa fa-star-o";
+	}
+	if(moves === 15) {
+		stars[1].classList = "fa fa-star-o";
+	}
 }
+
 
 let shuffledCards = shuffle(cards);
 let deck = document.querySelector('.deck');
@@ -70,6 +78,8 @@ for(let card of shuffledCards) {
 }
 
 deck.addEventListener('click' , respondToTheClick);
+
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
