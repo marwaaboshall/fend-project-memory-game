@@ -63,6 +63,7 @@ function respondToTheClick(evt) {
 	if(moves === 15) {
 		stars[1].className = "fa fa-star-o star";
 	}
+	//$(".modal").modal('show');
 }
 
 
