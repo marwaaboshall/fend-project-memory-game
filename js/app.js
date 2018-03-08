@@ -34,7 +34,7 @@ let parentList = [];
 let showOpen = ['show' , 'open'];
 let moves = 0;
 const movesText  =  document.getElementById('moves');
-
+let matches = 0;
 function respondToTheClick(evt) {
 	if(evt.target.nodeName === 'LI') {
 		parentList.push(evt.target);
@@ -44,6 +44,11 @@ function respondToTheClick(evt) {
 			if(openCards[0].className.toString() === openCards[1].className.toString()) {
 				parentList[0].classList.add('match');
 				parentList[1].classList.add('match');
+				matches += 1;
+				console.log("MATCHES: " + matches);
+				if(matches === 8) {
+					$(".modal").modal('show');
+				}
 			} else {
 				parentList.forEach(function(item, index, arr) {
 					setTimeout(function hide() {
@@ -63,7 +68,6 @@ function respondToTheClick(evt) {
 	if(moves === 15) {
 		stars[1].className = "fa fa-star-o star";
 	}
-	//$(".modal").modal('show');
 }
 
 
@@ -99,6 +103,7 @@ function reset() {
 	parentList = [];
 	openCards = [];
 	moves = 0;
+	matches = 0;
 }
 
 let resetButton = document.getElementById("reset");
