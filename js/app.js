@@ -33,8 +33,11 @@ let openCards = [];
 let parentList = [];
 let showOpen = ['show' , 'open'];
 let moves = 0;
+let starsCounter = 3;
 const movesText  =  document.getElementById('moves');
 let matches = 0;
+let winningText = document.getElementById('moves_stars');
+
 function respondToTheClick(evt) {
 	if(evt.target.nodeName === 'LI') {
 		parentList.push(evt.target);
@@ -46,8 +49,10 @@ function respondToTheClick(evt) {
 				parentList[1].classList.add('match');
 				matches += 1;
 				console.log("MATCHES: " + matches);
+				console.log("STARS COUNTER: " + starsCounter);
 				if(matches === 8) {
 					$(".modal").modal('show');
+					winningText.innerText = `With ${moves} Moves and ${starsCounter} Stars.`;
 				}
 			} else {
 				parentList.forEach(function(item, index, arr) {
@@ -64,9 +69,11 @@ function respondToTheClick(evt) {
 	}
 	if(moves === 7) {
 		stars[2].className = "fa fa-star-o star";
+		starsCounter = 2;
 	}
 	if(moves === 15) {
 		stars[1].className = "fa fa-star-o star";
+		starsCounter = 1;
 	}
 }
 
@@ -104,10 +111,14 @@ function reset() {
 	openCards = [];
 	moves = 0;
 	matches = 0;
+	starsCounter = 0;
 }
 
 let resetButton = document.getElementById("reset");
 resetButton.addEventListener('click', reset);
+
+let replayButton = document.getElementById("replay");
+replayButton.addEventListener('click', reset);
 
 /*
  * set up the event listener for a card. If a card is clicked:
