@@ -57,8 +57,12 @@ function respondToTheClick(evt) {
 			} else {
 				parentList.forEach(function(item, index, arr) {
 					setTimeout(function hide() {
-						item.classList.remove(...showOpen);
+						item.classList.add("notamatch" , "animated" , "wobble");
 				}, 1000);
+				setTimeout(function hide() {
+					item.classList.remove(...showOpen);
+					item.classList.remove("notamatch" , "animated" , "wobble");
+				}, 2000);
 				});
 			}
 			moves += 1;
