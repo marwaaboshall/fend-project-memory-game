@@ -32,6 +32,8 @@ function shuffle(array) {
 let openCards = [];
 let parentList = [];
 let showOpen = ['show' , 'open'];
+let wobbleAnimations = ["notamatch" , "animated" , "wobble"];
+let rubberBandAnimations = ['match' , 'animated' , 'rubberBand'];
 let moves = 0;
 let starsCounter = 3;
 const movesText  =  document.getElementById('moves');
@@ -45,8 +47,8 @@ function respondToTheClick(evt) {
 		openCards.push(evt.target.querySelector('i'));
 		if(openCards.length === 2) {
 			if(openCards[0].className.toString() === openCards[1].className.toString()) {
-				parentList[0].classList.add('match');
-				parentList[1].classList.add('match');
+				parentList[0].classList.add(...rubberBandAnimations);
+				parentList[1].classList.add(...rubberBandAnimations);
 				matches += 1;
 				console.log("MATCHES: " + matches);
 				console.log("STARS COUNTER: " + starsCounter);
@@ -57,11 +59,11 @@ function respondToTheClick(evt) {
 			} else {
 				parentList.forEach(function(item, index, arr) {
 					setTimeout(function hide() {
-						item.classList.add("notamatch" , "animated" , "wobble");
+						item.classList.add(...wobbleAnimations);
 				}, 1000);
 				setTimeout(function hide() {
 					item.classList.remove(...showOpen);
-					item.classList.remove("notamatch" , "animated" , "wobble");
+					item.classList.remove(...wobbleAnimations);
 				}, 2000);
 				});
 			}
