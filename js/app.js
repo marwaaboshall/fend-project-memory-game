@@ -50,21 +50,27 @@ function respondToTheClick(evt) {
 				parentList[0].classList.add(...rubberBandAnimations);
 				parentList[1].classList.add(...rubberBandAnimations);
 				matches += 1;
-				console.log("MATCHES: " + matches);
-				console.log("STARS COUNTER: " + starsCounter);
 				if(matches === 8) {
-					$(".modal").modal('show');
+					// $(".modal").modal('show');
+					swal({
+						title: "Congratulations! You Won!",
+						text: `With ${moves} Moves and ${starsCounter} Stars.`,
+						confirmButtonText: "Play Again",
+						confirmButtonColor: "#04c2b2",
+						type: "success",
+						customClass: "swal-fullscreen"
+					}).then(reset());
 					winningText.innerText = `With ${moves} Moves and ${starsCounter} Stars.`;
 				}
 			} else {
 				parentList.forEach(function(item, index, arr) {
 					setTimeout(function hide() {
 						item.classList.add(...wobbleAnimations);
-				}, 1000);
+				}, 200);
 				setTimeout(function hide() {
 					item.classList.remove(...showOpen);
 					item.classList.remove(...wobbleAnimations);
-				}, 2000);
+				}, 600);
 				});
 			}
 			moves += 1;
@@ -102,7 +108,9 @@ let images = document.getElementsByClassName('image');
 
 function reset() {
 	moves = 0;
-	movesText.innerText = 0;
+	openCards = [];
+	movesText.innerText = moves;
+	console.log("MOVES: " +  moves);
 	for(let i = 0; i < stars.length; i++) {
 		stars[i].className = "fa fa-star star";
 	}
@@ -114,8 +122,6 @@ function reset() {
 		images[j].className = `${shuffledCards[j]} image`;
 	}
 	parentList = [];
-	openCards = [];
-	moves = 0;
 	matches = 0;
 	starsCounter = 0;
 }
@@ -123,8 +129,8 @@ function reset() {
 let resetButton = document.getElementById("reset");
 resetButton.addEventListener('click', reset);
 
-let replayButton = document.getElementById("replay");
-replayButton.addEventListener('click', reset);
+// let replayButton = document.getElementById("replay");
+// replayButton.addEventListener('click', reset);
 
 /*
  * set up the event listener for a card. If a card is clicked:
