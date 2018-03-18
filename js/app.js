@@ -1,12 +1,12 @@
 /*
  * Create a list that holds all of your cards
  */
-let cards = ['fa fa-diamond','fa fa-paper-plane-o',
-			'fa fa-diamond','fa fa-paper-plane-o','fa fa-anchor','fa fa-anchor','fa fa-bolt',
-			'fa fa-cube','fa fa-cube','fa fa-bolt','fa fa-leaf','fa fa-bicycle','fa fa-bomb',
-			'fa fa-leaf','fa fa-bicycle','fa fa-bomb'];
+ let cards = ['fa fa-diamond','fa fa-paper-plane-o',
+ 'fa fa-diamond','fa fa-paper-plane-o','fa fa-anchor','fa fa-anchor','fa fa-bolt',
+ 'fa fa-cube','fa fa-cube','fa fa-bolt','fa fa-leaf','fa fa-bicycle','fa fa-bomb',
+ 'fa fa-leaf','fa fa-bicycle','fa fa-bomb'];
 
-const stars = document.getElementsByClassName('star');
+ const stars = document.getElementsByClassName('star');
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -16,17 +16,17 @@ const stars = document.getElementsByClassName('star');
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+	var currentIndex = array.length, temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+	while (currentIndex !== 0) {
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	}
 
-    return array;
+	return array;
 }
 
 let openCards = [];
@@ -51,7 +51,7 @@ function respondToTheClick(evt) {
 				parentList[1].classList.add(...rubberBandAnimations);
 				matches += 1;
 				if(matches === 8) {
-					// $(".modal").modal('show');
+					//$(".modal").modal('show');
 					swal({
 						title: "Congratulations! You Won!",
 						text: `With ${moves} Moves and ${starsCounter} Stars.`,
@@ -59,18 +59,22 @@ function respondToTheClick(evt) {
 						confirmButtonColor: "#04c2b2",
 						type: "success",
 						customClass: "swal-fullscreen"
-					}).then(reset());
-					winningText.innerText = `With ${moves} Moves and ${starsCounter} Stars.`;
+					}).then( (result) => {
+						if(result.value) {
+							resetGame();
+						}
+					});
+					//winningText.innerText = `With ${moves} Moves and ${starsCounter} Stars.`;
 				}
 			} else {
 				parentList.forEach(function(item, index, arr) {
 					setTimeout(function hide() {
 						item.classList.add(...wobbleAnimations);
-				}, 200);
-				setTimeout(function hide() {
-					item.classList.remove(...showOpen);
-					item.classList.remove(...wobbleAnimations);
-				}, 600);
+					}, 200);
+					setTimeout(function hide() {
+						item.classList.remove(...showOpen);
+						item.classList.remove(...wobbleAnimations);
+					}, 600);
 				});
 			}
 			moves += 1;
@@ -87,6 +91,10 @@ function respondToTheClick(evt) {
 		stars[1].className = "fa fa-star-o star";
 		starsCounter = 1;
 	}
+	if(moves === 20) {
+		stars[0].className = "fa fa-star-o star";
+		starsCounter = 0;
+	}
 }
 
 
@@ -95,8 +103,8 @@ let deck = document.querySelector('.deck');
 
 for(let card of shuffledCards) {
 	let cardHTML = `<li class="card">
-                		<i class="${card} image"></i>
-            		</li>`;
+	<i class="${card} image"></i>
+	</li>`;
 	deck.insertAdjacentHTML('beforeend',cardHTML);
 }
 
@@ -106,11 +114,10 @@ deck.addEventListener('click' , respondToTheClick);
 let cardsElements = document.getElementsByClassName('card');
 let images = document.getElementsByClassName('image');
 
-function reset() {
+function resetGame() {
 	moves = 0;
 	openCards = [];
 	movesText.innerText = moves;
-	console.log("MOVES: " +  moves);
 	for(let i = 0; i < stars.length; i++) {
 		stars[i].className = "fa fa-star star";
 	}
@@ -127,10 +134,10 @@ function reset() {
 }
 
 let resetButton = document.getElementById("reset");
-resetButton.addEventListener('click', reset);
+resetButton.addEventListener('click', resetGame);
 
 // let replayButton = document.getElementById("replay");
-// replayButton.addEventListener('click', reset);
+// replayButton.addEventListener('click', resetGame);
 
 /*
  * set up the event listener for a card. If a card is clicked:
