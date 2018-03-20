@@ -94,10 +94,6 @@ function respondToTheClick(evt) {
 		stars[1].className = "fa fa-star-o star";
 		starsCounter = 1;
 	}
-	if(moves === 20) {
-		stars[0].className = "fa fa-star-o star";
-		starsCounter = 0;
-	}
 }
 
 
