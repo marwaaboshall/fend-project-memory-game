@@ -144,8 +144,7 @@ function countTime() {
 }
 
 countTime();
-// let replayButton = document.getElementById("replay");
-// replayButton.addEventListener('click', resetGame);
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
