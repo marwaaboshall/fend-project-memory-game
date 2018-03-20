@@ -9,6 +9,8 @@
  const stars = document.getElementsByClassName('star');
 
  let timer = 0;
+
+ let timerText = document.getElementById("timer");
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -132,6 +134,7 @@ function resetGame() {
 	parentList = [];
 	matches = 0;
 	starsCounter = 0;
+	timer = -1;
 }
 
 let resetButton = document.getElementById("reset");
@@ -140,11 +143,11 @@ resetButton.addEventListener('click', resetGame);
 function countTime() {
 	setInterval(function(){
 		timer += 1;
-		console.log(`TIMER: ${timer}`);
+		timerText.innerText = `Timer: ${timer}`;
 	},1000);
 }
 
-//countTime();
+countTime();
 // let replayButton = document.getElementById("replay");
 // replayButton.addEventListener('click', resetGame);
 
