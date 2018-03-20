@@ -7,6 +7,8 @@
  'fa fa-leaf','fa fa-bicycle','fa fa-bomb'];
 
  const stars = document.getElementsByClassName('star');
+
+ let timer = 0;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -57,8 +59,7 @@ function respondToTheClick(evt) {
 						text: `With ${moves} Moves and ${starsCounter} Stars.`,
 						confirmButtonText: "Play Again",
 						confirmButtonColor: "#04c2b2",
-						type: "success",
-						customClass: "swal-fullscreen"
+						type: "success"
 					}).then( (result) => {
 						if(result.value) {
 							resetGame();
@@ -136,6 +137,14 @@ function resetGame() {
 let resetButton = document.getElementById("reset");
 resetButton.addEventListener('click', resetGame);
 
+function countTime() {
+	setInterval(function(){
+		timer += 1;
+		console.log(`TIMER: ${timer}`);
+	},1000);
+}
+
+//countTime();
 // let replayButton = document.getElementById("replay");
 // replayButton.addEventListener('click', resetGame);
 

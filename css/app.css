@@ -93,15 +93,15 @@ h1 {
     background: red;
 }
 
-.replay-button {
+/*.replay-button {
     background-color: #04c2b2;
     display: -webkit-flex;
     display: flex;
     -webkit-justify-content: center;
         justify-content: center;
 
-}
-.replay {
+}*/
+/*.replay {
     width: 240px;
     height: 40px;
     background-color: #04c2b2;
@@ -117,7 +117,7 @@ h1 {
 
 .replay:focus {
     outline: 0;
-}
+}*/
 
 .swal-fullscreen {
     width: 100%;
