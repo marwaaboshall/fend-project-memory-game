@@ -58,7 +58,7 @@ function respondToTheClick(evt) {
 					//$(".modal").modal('show');
 					swal({
 						title: "Congratulations! You Won!",
-						text: `With ${moves} Moves and ${starsCounter} Stars.`,
+						text: `With ${moves} Moves and ${starsCounter} Stars in ${timer} seconds.`,
 						confirmButtonText: "Play Again",
 						confirmButtonColor: "#04c2b2",
 						type: "success"
