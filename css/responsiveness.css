@@ -9,7 +9,7 @@
 	}
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 550px) {
 	.deck {
 		width: 400px;
 		min-height: 412px;
@@ -19,3 +19,15 @@
 		height: 70px;
 	}
 }
+
+@media screen and (max-width: 415px) {
+	.deck {
+		width: 350px;
+		min-height: 361px;
+	}
+	.deck .card {
+		width: 60px;
+		height: 60px;
+	}
+}
+
