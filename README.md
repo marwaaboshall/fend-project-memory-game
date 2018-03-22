@@ -13,18 +13,18 @@ A Udacity project developed using HTML, CSS and JavaScript.
 
 ## Resources used to develop the game
 
-#Images
+# Images
 
-###Font Awesome
+### Font Awesome
 * https://fontawesome.bootstrapcheatsheets.com/
 
-#Animations
+# Animations
 
-###Animate.css
+### Animate.css
 * https://github.com/daneden/animate.css
 
-#Modal
+# Modal
 
-###SweetAlert2
+### SweetAlert2
 * https://sweetalert2.github.io/
 
