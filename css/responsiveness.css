@@ -1,0 +1,21 @@
+@media screen and (max-width: 700px) {
+	.deck {
+		width: 486px;
+		min-height: 500px;
+	}
+	.deck .card {
+		width: 95px;
+		height: 95px;
+	}
+}
+
+@media screen and (max-width: 700px) {
+	.deck {
+		width: 400px;
+		min-height: 412px;
+	}
+	.deck .card {
+		width: 70px;
+		height: 70px;
+	}
+}
