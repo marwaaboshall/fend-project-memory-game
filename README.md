@@ -1,20 +1,30 @@
 # Memory Game Project
+A Udacity project developed using HTML, CSS and JavaScript.
 
-## Table of Contents
+## How to play
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+* Clone the project using: git clone https://github.com/marwaaboshall/fend-project-memory-game.git .
+* Run index.html in your browser.
+* Click on the cards to reveal the images.
+* Every two cards should match so you can win the game.
+* You can reset the game using the reset button on the top right side of the screen.
+* You can play again after you finish by pressing the Play Again button in the winning screen.
+* You can know the number of moves and stars from the score panel on the top left side of the screen.
 
-## Instructions
+## Resources used to develop the game
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+#Images
 
-To get started, open `js/app.js` and start building out the app's functionality
+###Font Awesome
+* https://fontawesome.bootstrapcheatsheets.com/
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+#Animations
 
-## Contributing
+###Animate.css
+* https://github.com/daneden/animate.css
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+#Modal
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+###SweetAlert2
+* https://sweetalert2.github.io/
+
