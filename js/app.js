@@ -28,6 +28,8 @@
  *   - add each card's HTML to the page
  */
 
+initGame();
+
 function initGame() {
  	let shuffledCards = shuffle(cards);
  	let deck = document.querySelector('.deck');
@@ -51,9 +53,6 @@ function countTime() {
 		timerText.innerText = `Timer: ${timer}`;
 	},1000);
 }
-
-initGame();
-
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
