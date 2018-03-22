@@ -7,16 +7,38 @@
  'fa fa-leaf','fa fa-bicycle','fa fa-bomb'];
 
  const stars = document.getElementsByClassName('star');
+ const movesText  =  document.getElementById('moves');
 
  let timer = 0;
-
+ let moves = 0;
+ let starsCounter = 3;
+ let matches = 0;
  let timerText = document.getElementById("timer");
+ let openCards = [];
+ let parentList = [];
+ let showOpen = ['show' , 'open'];
+ let wobbleAnimations = ["notamatch" , "animated" , "wobble"];
+ let rubberBandAnimations = ['match' , 'animated' , 'rubberBand'];
+ let winningText = document.getElementById('moves_stars');
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+ let shuffledCards = shuffle(cards);
+ let deck = document.querySelector('.deck');
+
+ for(let card of shuffledCards) {
+ 	let cardHTML = `<li class="card">
+ 	<i class="${card} image"></i>
+ 	</li>`;
+ 	deck.insertAdjacentHTML('beforeend',cardHTML);
+ }
+
+ deck.addEventListener('click' , respondToTheClick);
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -33,59 +55,50 @@ function shuffle(array) {
 	return array;
 }
 
-let openCards = [];
-let parentList = [];
-let showOpen = ['show' , 'open'];
-let wobbleAnimations = ["notamatch" , "animated" , "wobble"];
-let rubberBandAnimations = ['match' , 'animated' , 'rubberBand'];
-let moves = 0;
-let starsCounter = 3;
-const movesText  =  document.getElementById('moves');
-let matches = 0;
-let winningText = document.getElementById('moves_stars');
+function showCards(card) {
+	parentList.push(card);
+	card.classList.add(...showOpen);
+	openCards.push(card.querySelector('i'));
+}
 
-function respondToTheClick(evt) {
-	if(evt.target.nodeName === 'LI') {
-		parentList.push(evt.target);
-		evt.target.classList.add(...showOpen);
-		openCards.push(evt.target.querySelector('i'));
-		if(openCards.length === 2) {
-			if(openCards[0].className.toString() === openCards[1].className.toString()) {
-				parentList[0].classList.add(...rubberBandAnimations);
-				parentList[1].classList.add(...rubberBandAnimations);
-				matches += 1;
-				if(matches === 8) {
-					//$(".modal").modal('show');
-					swal({
-						title: "Congratulations! You Won!",
-						text: `With ${moves} Moves and ${starsCounter} Stars in ${timer} seconds.`,
-						confirmButtonText: "Play Again",
-						confirmButtonColor: "#04c2b2",
-						type: "success"
-					}).then( (result) => {
-						if(result.value) {
-							resetGame();
-						}
-					});
-					//winningText.innerText = `With ${moves} Moves and ${starsCounter} Stars.`;
-				}
-			} else {
-				parentList.forEach(function(item, index, arr) {
-					setTimeout(function hide() {
-						item.classList.add(...wobbleAnimations);
-					}, 200);
-					setTimeout(function hide() {
-						item.classList.remove(...showOpen);
-						item.classList.remove(...wobbleAnimations);
-					}, 600);
-				});
+function matchCards(cardsParentsList) {
+	cardsParentsList[0].classList.add(...rubberBandAnimations);
+	cardsParentsList[1].classList.add(...rubberBandAnimations);
+	matches += 1;
+}
+
+function notMatchCards(cardsParentsList) {
+	cardsParentsList.forEach(function(item, index, arr) {
+		setTimeout(function hide() {
+			item.classList.add(...wobbleAnimations);
+		}, 200);
+		setTimeout(function hide() {
+			item.classList.remove(...showOpen);
+			item.classList.remove(...wobbleAnimations);
+		}, 600);
+	});
+}
+
+function winGame(numberOfMatches) {
+	if(numberOfMatches === 8) {
+		swal({
+			title: "Congratulations! You Won!",
+			text: `With ${moves} Moves and ${starsCounter} Stars in ${timer} seconds.`,
+			confirmButtonText: "Play Again",
+			confirmButtonColor: "#04c2b2",
+			type: "success"
+		}).then( (result) => {
+			if(result.value) {
+				resetGame();
 			}
-			moves += 1;
-			movesText.innerText = moves;
-			openCards = [];
-			parentList = [];
-		}
+		});
 	}
+}
+
+function movesCounter() {
+	moves += 1;
+	movesText.innerText = moves;
+
 	if(moves === 7) {
 		stars[2].className = "fa fa-star-o star";
 		starsCounter = 2;
@@ -96,24 +109,26 @@ function respondToTheClick(evt) {
 	}
 }
 
-
-let shuffledCards = shuffle(cards);
-let deck = document.querySelector('.deck');
-
-for(let card of shuffledCards) {
-	let cardHTML = `<li class="card">
-	<i class="${card} image"></i>
-	</li>`;
-	deck.insertAdjacentHTML('beforeend',cardHTML);
+function respondToTheClick(evt) {
+	if(evt.target.nodeName === 'LI') {
+		showCards(evt.target);
+		if(openCards.length === 2) {
+			if(openCards[0].className.toString() === openCards[1].className.toString()) {
+				matchCards(parentList);
+				winGame(matches);
+			} else {
+				notMatchCards(parentList);
+			}
+			movesCounter();
+			openCards = [];
+			parentList = [];
+		}
+	}
 }
 
-deck.addEventListener('click' , respondToTheClick);
-
-
-let cardsElements = document.getElementsByClassName('card');
-let images = document.getElementsByClassName('image');
-
 function resetGame() {
+	let cardsElements = document.getElementsByClassName('card');
+	let images = document.getElementsByClassName('image');
 	moves = 0;
 	openCards = [];
 	movesText.innerText = moves;
