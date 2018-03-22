@@ -28,3 +28,8 @@ A Udacity project developed using HTML, CSS and JavaScript.
 ### SweetAlert2
 * https://sweetalert2.github.io/
 
+# Shuffle Cards
+
+### Shuffle function
+* http://stackoverflow.com/a/2450976
+
