@@ -70,6 +70,9 @@ function shuffle(array) {
 }
 
 function showCards(card) {
+	if(card.classList.contains("open")) {
+		return true;
+	}
 	parentList.push(card);
 	card.classList.add(...showOpen);
 	openCards.push(card.querySelector('i'));
