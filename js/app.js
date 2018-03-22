@@ -28,17 +28,32 @@
  *   - add each card's HTML to the page
  */
 
- let shuffledCards = shuffle(cards);
- let deck = document.querySelector('.deck');
+function initGame() {
+ 	let shuffledCards = shuffle(cards);
+ 	let deck = document.querySelector('.deck');
 
- for(let card of shuffledCards) {
- 	let cardHTML = `<li class="card">
- 	<i class="${card} image"></i>
- 	</li>`;
- 	deck.insertAdjacentHTML('beforeend',cardHTML);
- }
+ 	for(let card of shuffledCards) {
+ 		let cardHTML = `<li class="card">
+ 		<i class="${card} image"></i>
+ 		</li>`;
+ 		deck.insertAdjacentHTML('beforeend',cardHTML);
+ 	}
 
- deck.addEventListener('click' , respondToTheClick);
+ 	deck.addEventListener('click' , respondToTheClick);
+ 	let resetButton = document.getElementById("reset");
+	resetButton.addEventListener('click', resetGame);
+	countTime();
+}
+
+function countTime() {
+	setInterval(function(){
+		timer += 1;
+		timerText.innerText = `Timer: ${timer}`;
+	},1000);
+}
+
+initGame();
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -135,7 +150,6 @@ function resetGame() {
 	for(let i = 0; i < stars.length; i++) {
 		stars[i].className = "fa fa-star star";
 	}
-
 	shuffledCards = shuffle(cards);
 
 	for(let j = 0; j < cardsElements.length; j++) {
@@ -147,19 +161,6 @@ function resetGame() {
 	starsCounter = 0;
 	timer = -1;
 }
-
-let resetButton = document.getElementById("reset");
-resetButton.addEventListener('click', resetGame);
-
-function countTime() {
-	setInterval(function(){
-		timer += 1;
-		timerText.innerText = `Timer: ${timer}`;
-	},1000);
-}
-
-countTime();
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
