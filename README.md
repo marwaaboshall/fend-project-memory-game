@@ -11,7 +11,7 @@ A Udacity project developed using HTML, CSS and JavaScript.
 * You can play again after you finish by pressing the Play Again button in the winning screen.
 * You can know the number of moves and stars from the score panel on the top left side of the screen.
 
-## Resources used to develop the game
+# Resources used to develop the game
 
 # Images
 
