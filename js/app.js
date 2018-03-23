@@ -1,53 +1,46 @@
-/*
- * Create a list that holds all of your cards
- */
- let cards = ['fa fa-diamond','fa fa-paper-plane-o',
- 'fa fa-diamond','fa fa-paper-plane-o','fa fa-anchor','fa fa-anchor','fa fa-bolt',
- 'fa fa-cube','fa fa-cube','fa fa-bolt','fa fa-leaf','fa fa-bicycle','fa fa-bomb',
- 'fa fa-leaf','fa fa-bicycle','fa fa-bomb'];
+// Declaring global variables
+let cards = ['fa fa-diamond','fa fa-paper-plane-o',
+'fa fa-diamond','fa fa-paper-plane-o','fa fa-anchor','fa fa-anchor','fa fa-bolt',
+'fa fa-cube','fa fa-cube','fa fa-bolt','fa fa-leaf','fa fa-bicycle','fa fa-bomb',
+'fa fa-leaf','fa fa-bicycle','fa fa-bomb'];
 
- const stars = document.getElementsByClassName('star');
- const movesText  =  document.getElementById('moves');
+const stars = document.getElementsByClassName('star');
+const movesText  =  document.getElementById('moves');
 
- let timer = 0;
- let moves = 0;
- let starsCounter = 3;
- let matches = 0;
- let timerText = document.getElementById("timer");
- let openCards = [];
- let parentList = [];
- let showOpen = ['show' , 'open'];
- let wobbleAnimations = ["notamatch" , "animated" , "wobble"];
- let rubberBandAnimations = ['match' , 'animated' , 'rubberBand'];
- let winningText = document.getElementById('moves_stars');
+let timer = 0;
+let moves = 0;
+let starsCounter = 3;
+let matches = 0;
+let openCards = [];
+let parentList = [];
+let showOpen = ['show' , 'open'];
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 initGame();
 
+// init game function, initializes the game by shuffling the cards, creating the cards and inserting them
+// into the parent element which is deck.
+// starting the timer and adding an eventlistener to the reset button.
 function initGame() {
- 	let shuffledCards = shuffle(cards);
- 	let deck = document.querySelector('.deck');
+	let shuffledCards = shuffle(cards);
+	let deck = document.querySelector('.deck');
 
- 	for(let card of shuffledCards) {
- 		let cardHTML = `<li class="card">
- 		<i class="${card} image"></i>
- 		</li>`;
- 		deck.insertAdjacentHTML('beforeend',cardHTML);
- 	}
+	for(let card of shuffledCards) {
+		let cardHTML = `<li class="card">
+		<i class="${card} image"></i>
+		</li>`;
+		deck.insertAdjacentHTML('beforeend',cardHTML);
+	}
 
- 	deck.addEventListener('click' , respondToTheClick);
- 	let resetButton = document.getElementById("reset");
+	deck.addEventListener('click' , respondToTheClick);
+	let resetButton = document.getElementById("reset");
 	resetButton.addEventListener('click', resetGame);
 	countTime();
 }
 
+// Seconds counter function
 function countTime() {
+	let timerText = document.getElementById("timer");
 	setInterval(function(){
 		timer += 1;
 		timerText.innerText = `Timer: ${timer}`;
@@ -69,6 +62,7 @@ function shuffle(array) {
 	return array;
 }
 
+// Showing cards by adding show and open classes to them.
 function showCards(card) {
 	if(card.classList.contains("open")) {
 		return true;
@@ -78,13 +72,18 @@ function showCards(card) {
 	openCards.push(card.querySelector('i'));
 }
 
+// Adding rubberBand animations if the open cards match and increasing the number of matches by 1.
 function matchCards(cardsParentsList) {
+	let rubberBandAnimations = ['match' , 'animated' , 'rubberBand'];
 	cardsParentsList[0].classList.add(...rubberBandAnimations);
 	cardsParentsList[1].classList.add(...rubberBandAnimations);
 	matches += 1;
 }
 
+// Adding wobbleAnimations if the open cards don't match.
+// then removing show and open classes from the cards to hide them.
 function notMatchCards(cardsParentsList) {
+	let wobbleAnimations = ["notamatch" , "animated" , "wobble"];
 	cardsParentsList.forEach(function(item, index, arr) {
 		setTimeout(function hide() {
 			item.classList.add(...wobbleAnimations);
@@ -96,6 +95,7 @@ function notMatchCards(cardsParentsList) {
 	});
 }
 
+// displaying the modal in case number of matches equals 8.
 function winGame(numberOfMatches) {
 	if(numberOfMatches === 8) {
 		swal({
@@ -112,6 +112,8 @@ function winGame(numberOfMatches) {
 	}
 }
 
+// Increasing the number of moves by 1.
+// changing the stars according to the number of moves.
 function movesCounter() {
 	moves += 1;
 	movesText.innerText = moves;
@@ -126,6 +128,7 @@ function movesCounter() {
 	}
 }
 
+// Responding to the click listener on each card.
 function respondToTheClick(evt) {
 	if(evt.target.nodeName === 'LI') {
 		showCards(evt.target);
@@ -143,6 +146,7 @@ function respondToTheClick(evt) {
 	}
 }
 
+// reseting the game by resetting all the variables to its default values and shuffling the cards again.
 function resetGame() {
 	let cardsElements = document.getElementsByClassName('card');
 	let images = document.getElementsByClassName('image');
@@ -163,14 +167,3 @@ function resetGame() {
 	starsCounter = 0;
 	timer = -1;
 }
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
