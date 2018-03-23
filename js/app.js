@@ -1,8 +1,8 @@
 // Declaring global variables
-let cards = ['fa fa-diamond','fa fa-paper-plane-o',
-'fa fa-diamond','fa fa-paper-plane-o','fa fa-anchor','fa fa-anchor','fa fa-bolt',
-'fa fa-cube','fa fa-cube','fa fa-bolt','fa fa-leaf','fa fa-bicycle','fa fa-bomb',
-'fa fa-leaf','fa fa-bicycle','fa fa-bomb'];
+let cards = ['fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-diamond',
+'fa fa-paper-plane-o', 'fa fa-anchor', 'fa fa-anchor', 'fa fa-bolt',
+'fa fa-cube', 'fa fa-cube', 'fa fa-bolt', 'fa fa-leaf', 'fa fa-bicycle',
+'fa fa-bomb', 'fa fa-leaf', 'fa fa-bicycle', 'fa fa-bomb'];
 
 const stars = document.getElementsByClassName('star');
 const movesText  =  document.getElementById('moves');
@@ -33,14 +33,14 @@ function initGame() {
 	}
 
 	deck.addEventListener('click' , respondToTheClick);
-	let resetButton = document.getElementById("reset");
+	let resetButton = document.getElementById('reset');
 	resetButton.addEventListener('click', resetGame);
 	countTime();
 }
 
 // Seconds counter function
 function countTime() {
-	let timerText = document.getElementById("timer");
+	let timerText = document.getElementById('timer');
 	setInterval(function(){
 		timer += 1;
 		timerText.innerText = `Timer: ${timer}`;
@@ -64,7 +64,7 @@ function shuffle(array) {
 
 // Showing cards by adding show and open classes to them.
 function showCards(card) {
-	if(card.classList.contains("open")) {
+	if(card.classList.contains('open')) {
 		return true;
 	}
 	parentList.push(card);
@@ -83,7 +83,7 @@ function matchCards(cardsParentsList) {
 // Adding wobbleAnimations if the open cards don't match.
 // then removing show and open classes from the cards to hide them.
 function notMatchCards(cardsParentsList) {
-	let wobbleAnimations = ["notamatch" , "animated" , "wobble"];
+	let wobbleAnimations = ['notamatch' , 'animated' , 'wobble'];
 	cardsParentsList.forEach(function(item, index, arr) {
 		setTimeout(function hide() {
 			item.classList.add(...wobbleAnimations);
@@ -99,11 +99,11 @@ function notMatchCards(cardsParentsList) {
 function winGame(numberOfMatches) {
 	if(numberOfMatches === 8) {
 		swal({
-			title: "Congratulations! You Won!",
+			title: 'Congratulations! You Won!',
 			text: `With ${moves} Moves and ${starsCounter} Stars in ${timer} seconds.`,
-			confirmButtonText: "Play Again",
-			confirmButtonColor: "#04c2b2",
-			type: "success"
+			confirmButtonText: 'Play Again',
+			confirmButtonColor: '#04c2b2',
+			type: 'success'
 		}).then( (result) => {
 			if(result.value) {
 				resetGame();
@@ -119,11 +119,11 @@ function movesCounter() {
 	movesText.innerText = moves;
 
 	if(moves === 7) {
-		stars[2].className = "fa fa-star-o star";
+		stars[2].className = 'fa fa-star-o star';
 		starsCounter = 2;
 	}
 	if(moves === 15) {
-		stars[1].className = "fa fa-star-o star";
+		stars[1].className = 'fa fa-star-o star';
 		starsCounter = 1;
 	}
 }
@@ -154,9 +154,9 @@ function resetGame() {
 	openCards = [];
 	movesText.innerText = moves;
 	for(let i = 0; i < stars.length; i++) {
-		stars[i].className = "fa fa-star star";
+		stars[i].className = 'fa fa-star star';
 	}
-	shuffledCards = shuffle(cards);
+	let shuffledCards = shuffle(cards);
 
 	for(let j = 0; j < cardsElements.length; j++) {
 		cardsElements[j].className = 'card';
